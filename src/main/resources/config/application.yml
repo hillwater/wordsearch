@@ -28,6 +28,7 @@ spring:
         serialization.write_dates_as_timestamps: false
     jpa:
         open-in-view: false
+        generate-ddl: false
         hibernate:
             ddl-auto: none
             naming:

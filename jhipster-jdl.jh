@@ -1,0 +1,14 @@
+entity Word {
+    name String required maxlength(200),
+    dictionaryName String required maxlength(200),
+    explain String required maxlength(2000)
+}
+
+// Set pagination options
+paginate Word with infinite-scroll
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+

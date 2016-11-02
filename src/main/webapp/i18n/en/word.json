@@ -1,0 +1,24 @@
+{
+    "wordsearchApp": {
+        "word" : {
+            "home": {
+                "title": "Words",
+                "createLabel": "Create a new Word",
+                "createOrEditLabel": "Create or edit a Word",
+                "search": "Search for Word"
+            },
+            "created": "A new Word is created with identifier {{ param }}",
+            "updated": "A Word is updated with identifier {{ param }}",
+            "deleted": "A Word is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Word {{ id }}?"
+            },
+            "detail": {
+                "title": "Word"
+            },
+            "name": "Name",
+            "dictionaryName": "Dictionary Name",
+            "explain": "Explain"
+        }
+    }
+}

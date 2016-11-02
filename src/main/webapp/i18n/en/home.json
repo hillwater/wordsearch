@@ -1,7 +1,7 @@
 {
     "home": {
         "title": "Welcome, Word Search!",
-        "subtitle": "This is your homepage",
+        "subtitle": "Connect: hillwater.zju@gmail.com",
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."
         },
