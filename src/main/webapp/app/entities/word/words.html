@@ -47,7 +47,11 @@
                     <td class="hidden"><a ui-sref="word-detail({id:word.id})">{{word.id}}</a></td>
                     <td>{{word.name}}</td>
                     <!--<td>{{word.dictionaryName}}</td>-->
-                    <td>{{word.explain}}</td>
+                    <td>
+                        <div class="white-space-pre-line">
+                            {{word.explain}}
+                        </div>
+                    </td>
                     <!--<td class="text-right">-->
                         <!--<div class="btn-group flex-btn-group-container">-->
                             <!--<button type="submit"-->
