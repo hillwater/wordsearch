@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -19,7 +20,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "word")
-@Document(indexName = "word")
+@Document(indexName = "word", type = "word")
 public class Word implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,7 +39,7 @@ public class Word implements Serializable {
     @Column(name = "dictionary_name", length = 200, nullable = false)
     private String dictionaryName;
 
-    @Field(searchAnalyzer = "ik", analyzer = "ik")
+    @Field(searchAnalyzer = "ik", analyzer = "ik", type = FieldType.String)
     @NotNull
     @Size(max = 100000)
     @Column(name = "explain", length = 100000, nullable = false)
