@@ -1,18 +1,18 @@
 package com.hillwater.service.impl;
 
 import com.google.common.base.Joiner;
-import com.hillwater.service.WordService;
 import com.hillwater.domain.Word;
 import com.hillwater.repository.WordRepository;
 import com.hillwater.repository.search.WordSearchRepository;
+import com.hillwater.service.WordService;
 import com.hillwater.service.dto.WordDTO;
 import com.hillwater.service.mapper.WordMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -28,18 +28,18 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * Service Implementation for managing Word.
  */
 @Service
 @Transactional
-public class WordServiceImpl implements WordService{
+public class WordServiceImpl implements WordService {
 
     private final Logger log = LoggerFactory.getLogger(WordServiceImpl.class);
 
-    private final static String DICTIONARY_PATH_KEY="dictionary-path";
+    private final static String DICTIONARY_PATH_KEY = "dictionaryPath";
 
     private final static String hyphen_spilitter = "——————————";
 
@@ -79,10 +79,10 @@ public class WordServiceImpl implements WordService{
     }
 
     /**
-     *  Get all the words.
+     * Get all the words.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<WordDTO> findAll(Pageable pageable) {
@@ -92,10 +92,10 @@ public class WordServiceImpl implements WordService{
     }
 
     /**
-     *  Get one word by id.
+     * Get one word by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Transactional(readOnly = true)
     public WordDTO findOne(Long id) {
@@ -106,9 +106,9 @@ public class WordServiceImpl implements WordService{
     }
 
     /**
-     *  Delete the  word by id.
+     * Delete the  word by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete Word : {}", id);
@@ -119,8 +119,8 @@ public class WordServiceImpl implements WordService{
     /**
      * Search for the word corresponding to the query.
      *
-     *  @param query the query of the search
-     *  @return the list of entities
+     * @param query the query of the search
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<WordDTO> search(String query, Pageable pageable) {
@@ -130,7 +130,7 @@ public class WordServiceImpl implements WordService{
     }
 
     private String getDictionaryFolderPath() {
-        return System.getProperty(DICTIONARY_PATH_KEY, "/home/ubuntu/workspace/wordsearch/dictionary");
+        return System.getProperty(DICTIONARY_PATH_KEY, "/home/zhong_s/workspace/wordsearch/dictionary");
     }
 
     private void insertDictionaryData() {
@@ -138,7 +138,7 @@ public class WordServiceImpl implements WordService{
             Files.list(Paths.get(getDictionaryFolderPath()))
                 .filter(Files::isRegularFile)
                 .filter(path -> path.toString().endsWith(".txt"))
-                .forEach(p->insertOneFileData(p));
+                .forEach(p -> insertOneFileData(p));
         } catch (IOException e) {
             throw new RuntimeException("list dictionary files failed.", e);
         }
@@ -154,26 +154,24 @@ public class WordServiceImpl implements WordService{
 
             String dictionaryName = getDictionaryName(file);
 
-
-
-            List<String> lines = stream.map(line->line.trim()).collect(Collectors.toList());
+            List<String> lines = stream.map(line -> line.trim()).collect(Collectors.toList());
 
             List<Word> wordList;
 
-            if(lines.stream().anyMatch(line->line.contains(hyphen_spilitter))) {
+            if (lines.stream().anyMatch(line -> line.contains(hyphen_spilitter))) {
                 wordList = extractWordsByHyphenLine(dictionaryName, lines);
-            }else {
+            } else {
                 wordList = extractWordsByEmptyLine(lines);
             }
 
 
-            wordList.stream().limit(5).forEach(System.out::println);
+//            wordList.stream().limit(5).forEach(System.out::println);
 
             wordRepository.save(wordList);
             wordSearchRepository.save(wordList);
 
         } catch (IOException e) {
-            throw new RuntimeException("read dictionary file failed, file: "+file, e);
+            throw new RuntimeException("read dictionary file failed, file: " + file, e);
         }
     }
 
@@ -187,29 +185,29 @@ public class WordServiceImpl implements WordService{
         List<Word> result = new ArrayList<>();
 
 
-        for(int i = 0; i<lines.size(); i++) {
+        for (int i = 0; i < lines.size(); i++) {
 
             String line = lines.get(i);
 
-            if(line.contains(hyphen_spilitter)) {
-                if(tmpLines.size()<= 1) {
+            if (line.contains(hyphen_spilitter)) {
+                if (tmpLines.size() <= 1) {
                     // for file begin
                     tmpLines.clear();
-                }else {
-                    tmpLines.remove(tmpLines.size()-1);
+                } else {
+                    tmpLines.remove(tmpLines.size() - 1);
 
                     result.add(generateWordByData(dictionaryName, tmpLines));
 
                     tmpLines.clear();
                 }
-            }else {
+            } else {
                 tmpLines.add(line);
             }
 
         }
 
         // for file end
-        tmpLines.remove(tmpLines.size()-1);
+        tmpLines.remove(tmpLines.size() - 1);
 
         result.add(generateWordByData(dictionaryName, tmpLines));
 
@@ -227,7 +225,7 @@ public class WordServiceImpl implements WordService{
         Matcher m = wordPattern.matcher(line);
         if (m.find()) {
             return m.group(1).trim();
-        }else {
+        } else {
             return "";
         }
     }

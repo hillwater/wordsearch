@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -37,6 +38,7 @@ public class Word implements Serializable {
     @Column(name = "dictionary_name", length = 200, nullable = false)
     private String dictionaryName;
 
+    @Field(searchAnalyzer = "ik", analyzer = "ik")
     @NotNull
     @Size(max = 100000)
     @Column(name = "explain", length = 100000, nullable = false)

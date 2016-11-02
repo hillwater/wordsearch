@@ -3,13 +3,26 @@
 
     angular
         .module('wordsearchApp')
+//        .filter('highlight', HightLightFilter)
         .controller('WordController', WordController);
+
+//    HightLightFilter.$inject = ['$scope'];
+//
+//    function HightLightFilter ($scope) {
+//        return function(text, phrase) {
+//            if (phrase) {
+//                text = text.replace(new RegExp('('+phrase+')', 'gi'), '<span class="highlighted">$1</span>')
+//            }
+//
+//            return $scope.trustAsHtml(text)
+//        }
+//    }
 
     WordController.$inject = ['$scope', '$state', 'Word', 'WordSearch', 'ParseLinks', 'AlertService'];
 
     function WordController ($scope, $state, Word, WordSearch, ParseLinks, AlertService) {
         var vm = this;
-        
+
         vm.words = [];
         vm.loadPage = loadPage;
         vm.page = 0;
@@ -99,5 +112,12 @@
             vm.currentSearch = searchQuery;
             vm.loadAll();
         }
+
+//        function highlight(text) {
+//            if (!vm.currentSearch || vm.currentSearch === '') {
+//                return $scope.trustAsHtml(text);
+//            }
+//            return $scope.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted">$&</span>'));
+//        };
     }
 })();
