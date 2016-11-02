@@ -130,7 +130,7 @@ public class WordServiceImpl implements WordService{
     }
 
     private String getDictionaryFolderPath() {
-        return System.getProperty(DICTIONARY_PATH_KEY, "/home/zhong_s/workspace/wordsearch/dictionary");
+        return System.getProperty(DICTIONARY_PATH_KEY, "/home/ubuntu/workspace/wordsearch/dictionary");
     }
 
     private void insertDictionaryData() {
