@@ -1,5 +1,8 @@
 package com.hillwater.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.util.Objects;
 /**
  * A Word.
  */
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "word")
 @Document(indexName = "word")
@@ -32,8 +38,8 @@ public class Word implements Serializable {
     private String dictionaryName;
 
     @NotNull
-    @Size(max = 2000)
-    @Column(name = "explain", length = 2000, nullable = false)
+    @Size(max = 100000)
+    @Column(name = "explain", length = 100000, nullable = false)
     private String explain;
 
     public Long getId() {

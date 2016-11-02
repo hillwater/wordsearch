@@ -21,7 +21,7 @@ public class WordDTO implements Serializable {
     private String dictionaryName;
 
     @NotNull
-    @Size(max = 2000)
+    @Size(max = 100000)
     private String explain;
 
 

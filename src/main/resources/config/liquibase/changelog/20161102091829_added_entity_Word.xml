@@ -24,17 +24,17 @@
             <column name="name" type="varchar(200)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="dictionary_name" type="varchar(200)">
                 <constraints nullable="false" />
             </column>
-            
-            <column name="explain" type="varchar(2000)">
+
+            <column name="explain" type="text">
                 <constraints nullable="false" />
             </column>
-            
+
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
 </databaseChangeLog>

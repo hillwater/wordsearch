@@ -37,7 +37,7 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <th class="hidden" jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span data-translate="wordsearchApp.word.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dictionaryName"><span data-translate="wordsearchApp.word.dictionaryName">Dictionary Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!--<th jh-sort-by="dictionaryName"><span data-translate="wordsearchApp.word.dictionaryName">Dictionary Name</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="explain"><span data-translate="wordsearchApp.word.explain">Explain</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <!--<th></th>-->
                 </tr>
@@ -46,7 +46,7 @@
                 <tr ng-repeat="word in vm.words track by word.id">
                     <td class="hidden"><a ui-sref="word-detail({id:word.id})">{{word.id}}</a></td>
                     <td>{{word.name}}</td>
-                    <td>{{word.dictionaryName}}</td>
+                    <!--<td>{{word.dictionaryName}}</td>-->
                     <td>{{word.explain}}</td>
                     <!--<td class="text-right">-->
                         <!--<div class="btn-group flex-btn-group-container">-->

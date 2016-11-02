@@ -1,7 +1,7 @@
 entity Word {
     name String required maxlength(200),
     dictionaryName String required maxlength(200),
-    explain String required maxlength(2000)
+    explain String required maxlength(100000)
 }
 
 // Set pagination options
